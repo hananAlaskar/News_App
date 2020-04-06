@@ -43,8 +43,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         addOnClickListenerOnNewsItem(currentNews,listItemView);
 
 
-
-
         return listItemView;
     }
 
