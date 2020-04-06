@@ -5,10 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.newsapp.model.News;
 
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private  NewsAdapter mAdapter;
+    private NewsAdapter mAdapter;
 
 
     private static final String THE_GUARDIAN_REQUEST_URL =
@@ -31,47 +31,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
 
-
-
     }
-
-    private void displayListViewSectionOne(List<News> newsList) {
-
-        ListView newsSectionOne_lv = findViewById(R.id.section_one);
-
-        mAdapter = new NewsAdapter(this, R.id.section_one,newsList);
-        newsSectionOne_lv.setAdapter(mAdapter);
-
-        ((TextView)(findViewById(R.id.section_one_title))).setText("Politics");
-
-
-    }
-
-    private void displayListViewSectionThree(List<News> newsList) {
-
-        ListView newsSectionOne_lv = findViewById(R.id.section_two);
-
-        mAdapter = new NewsAdapter(this, R.id.section_one,newsList);
-        newsSectionOne_lv.setAdapter(mAdapter);
-
-        ((TextView)(findViewById(R.id.section_two_title))).setText("US news");
-
-    }
-
-    private void displayListViewSectionTwo(List<News> newsList) {
-
-        ListView newsSectionOne_lv = findViewById(R.id.section_three);
-        mAdapter = new NewsAdapter(this, R.id.section_one,newsList);
-        newsSectionOne_lv.setAdapter(mAdapter);
-
-        ((TextView)(findViewById(R.id.section_three_title))).setText("Football");
-
-    }
-
 
 
     @NonNull
@@ -96,10 +58,76 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private void updateUi(List<News> newsList) {
 
-        displayListViewSectionOne(newsList);
-        displayListViewSectionTwo(newsList);
-        displayListViewSectionThree(newsList);
+        displayNews(newsList);
+
     }
+
+    private void displayNews(List<News> newsList) {
+
+        displayListViewPoliticsSection(getPoliticalNews(newsList));
+        displayListViewFootballSection(getUSNews(newsList));
+        displayListViewUSNewsSection(getFootballNews(newsList));
+    }
+
+    private void displayListViewPoliticsSection(List<News> newsList) {
+
+        ListView politicsNewsSection_lv = findViewById(R.id.politics_section_lv);
+        mAdapter = new NewsAdapter(this, R.id.politics_section_lv, newsList);
+        politicsNewsSection_lv.setAdapter(mAdapter);
+
+    }
+
+    private void displayListViewUSNewsSection(List<News> newsList) {
+
+        ListView usNewsSection_lv = findViewById(R.id.us_news_section_lv);
+        mAdapter = new NewsAdapter(this, R.id.us_news_section_lv, newsList);
+        usNewsSection_lv.setAdapter(mAdapter);
+
+    }
+
+    private void displayListViewFootballSection(List<News> newsList) {
+
+        ListView footballNewsSection_lv = findViewById(R.id.football_section_lv);
+        mAdapter = new NewsAdapter(this, R.id.football_section_lv, newsList);
+        footballNewsSection_lv.setAdapter(mAdapter);
+
+    }
+
+
+    private List<News> getPoliticalNews(List<News> newsList) {
+
+        List<News> politicalNews = new ArrayList<>();
+
+        for (News news : newsList)
+            if (news.getmSectionType().equals(getString(R.string.politics)))
+                politicalNews.add(news);
+
+        return politicalNews;
+    }
+
+
+    private List<News> getUSNews(List<News> newsList) {
+
+        List<News> usNews = new ArrayList<>();
+
+        for (News news : newsList)
+            if (news.getmSectionType().equals(getString(R.string.us_news)))
+                usNews.add(news);
+
+        return usNews;
+    }
+
+    private List<News> getFootballNews(List<News> newsList) {
+
+        List<News> footballNews = new ArrayList<>();
+
+        for (News news : newsList)
+            if (news.getmSectionType().equals(getString(R.string.football)))
+                footballNews.add(news);
+
+        return footballNews;
+    }
+
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<News>> loader) {

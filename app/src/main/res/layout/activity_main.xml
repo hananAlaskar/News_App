@@ -12,8 +12,7 @@
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
+        android:layout_centerInParent="true" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,17 +28,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/section_one_title"
+                android:id="@+id/politics_section_title"
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/section_title_background_color"
                 android:gravity="center_horizontal"
                 android:textColor="@color/section_title_text_color"
-                tools:text="section_title" />
+                android:text="@string/politics" />
 
             <ListView
-                android:id="@+id/section_one"
+                android:id="@+id/politics_section_lv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/news_item" />
@@ -67,17 +66,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/section_two_title"
+                    android:id="@+id/us_news_section_title"
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/section_title_background_color"
                     android:gravity="center_horizontal"
                     android:textColor="@color/section_title_text_color"
-                    tools:text="section_title" />
+                    android:text="@string/us_news" />
 
                 <ListView
-                    android:id="@+id/section_two"
+                    android:id="@+id/us_news_section_lv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:listitem="@layout/news_item" />
@@ -99,17 +98,17 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/section_three_title"
+                    android:id="@+id/football_section_title"
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/section_title_background_color"
                     android:gravity="center_horizontal"
                     android:textColor="@color/section_title_text_color"
-                    tools:text="section_title" />
+                    android:text="@string/football" />
 
                 <ListView
-                    android:id="@+id/section_three"
+                    android:id="@+id/football_section_lv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:listitem="@layout/news_item" />

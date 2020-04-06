@@ -32,4 +32,8 @@ public class News {
     public String getmType() {
         return mType;
     }
+
+    public String getmSectionType() {
+        return mSectionType;
+    }
 }
