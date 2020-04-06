@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
-    app:cardCornerRadius="20dp"
-    android:orientation="vertical"
+    android:id="@+id/news_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,19 +20,19 @@
 
             <TextView
                 android:id="@+id/news_date"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                style="@style/TextAppearance.AppCompat.Body1"
                 tool:text="news_date" />
 
 
             <TextView
                 android:id="@+id/news_type"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                style="@style/TextAppearance.AppCompat.Body1"
                 tool:text="news_type" />
 
         </LinearLayout>
@@ -42,10 +40,10 @@
 
         <TextView
             android:id="@+id/news_title"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/title_margin"
-            style="@style/TextAppearance.AppCompat.Headline"
             tool:text="news_title" />
 
     </LinearLayout>
