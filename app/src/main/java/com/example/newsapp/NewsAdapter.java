@@ -79,13 +79,13 @@ public class NewsAdapter extends ArrayAdapter<News> {
         if (dateObject == null)
             return null;
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(mContext.getString(R.string.date_format_1));
         return dateFormat.format(dateObject);
     }
 
     private Date fromString(String dtStart) {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat format = new SimpleDateFormat(mContext.getString(R.string.date_format_2));
         Date date = null;
         try {
             date = format.parse(dtStart);

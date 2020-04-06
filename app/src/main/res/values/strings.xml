@@ -3,4 +3,7 @@
     <string name="politics">Politics</string>
     <string name="us_news">US news</string>
     <string name="football">Football</string>
+    <string name="no_news">No News</string>
+    <string name="date_format_1">LLL dd, yyyy</string>
+    <string name="date_format_2">yyyy-MM-dd\'T\'HH:mm:ss\'Z\'</string>
 </resources>

@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private NewsAdapter mAdapter;
 
-
     private static final String THE_GUARDIAN_REQUEST_URL =
             "http://content.guardianapis.com/search?q=debates&api-key=f90e137e-8881-4edd-ba02-3e6dd566cbb1";
 
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        
         getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
 
     }
@@ -51,14 +51,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
-        if (newsList != null && !newsList.isEmpty()) {
-            updateUi(newsList);
-        }
+
+        updateUi(newsList);
+
     }
 
     private void updateUi(List<News> newsList) {
 
-        displayNews(newsList);
+        if (newsList != null && !newsList.isEmpty()) {
+
+            findViewById(R.id.main_view).setVisibility(View.VISIBLE);
+            displayNews(newsList);
+
+        }else {
+            findViewById(R.id.empty_list).setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -131,6 +139,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<News>> loader) {
-
+        mAdapter.clear();
     }
 }
