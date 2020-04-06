@@ -3,4 +3,7 @@
     <dimen name="layout_margin">8dp</dimen>
     <dimen name="title_margin">8dp</dimen>
     <dimen name="section_margin">8dp</dimen>
+    <dimen name="primary_card_margin">24dp</dimen>
+    <dimen name="secondly_card_margin">8dp</dimen>
+    <dimen name="section_title_margin">8dp</dimen>
 </resources>
