@@ -1,6 +1,8 @@
 package com.example.newsapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +48,16 @@ public class NewsAdapter extends ArrayAdapter<News> {
         return listItemView;
     }
 
-    private void addOnClickListenerOnNewsItem(News currentNews, View listItemView) {
+    private void addOnClickListenerOnNewsItem(final News currentNews, View listItemView) {
 
         listItemView.findViewById(R.id.news_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
+                Uri newsUri = Uri.parse(currentNews.getmUrl());
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
 
-                Toast.makeText(mContext,"Clicked",Toast.LENGTH_LONG).show();
+                mContext.startActivity(websiteIntent);
             }
         });
 
