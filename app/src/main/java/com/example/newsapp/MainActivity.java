@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.newsapp.model.News;
 
@@ -30,8 +34,29 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        
-        getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
+
+        if (checkInternetConnection()) {
+
+            getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
+
+        } else {
+
+            findViewById(R.id.loading_indicator).setVisibility(View.GONE);
+            ((TextView)(findViewById(R.id.empty_list))).setText(R.string.no_internet_connection);
+            findViewById(R.id.empty_list).setVisibility(View.VISIBLE);
+        }
+
+
+    }
+
+    private boolean checkInternetConnection() {
+
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+       return ((networkInfo != null) && (networkInfo.isConnected()));
 
     }
 
@@ -44,17 +69,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return new NewsLoader(this, THE_GUARDIAN_REQUEST_URL);
     }
 
-
     @Override
     public void onLoadFinished(@NonNull Loader<List<News>> loader, List<News> newsList) {
 
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
-
         updateUi(newsList);
-
     }
+
 
     private void updateUi(List<News> newsList) {
 
@@ -64,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             displayNews(newsList);
 
         }else {
+            ((TextView)(findViewById(R.id.empty_list))).setText(R.string.no_news);
             findViewById(R.id.empty_list).setVisibility(View.VISIBLE);
         }
 
