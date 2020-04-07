@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#041DA8</color>
     <color name="colorAccent">#A64B4949</color>
 
-    <color name="section_title_background_color">#A13F51B5</color>
+    <color name="section_title_background_color">@color/colorAccent</color>
     <color name="section_title_text_color">#FCFFFFFF</color>
 
 </resources>
