@@ -4,7 +4,7 @@ News App is a android app that display the news form The Guardian API. This app 
 
  ---------------
 # Result
-![](screenshot/screenshot.gif)
+![](screenshot/screenshot.jpg)
 
 
  ---------------
