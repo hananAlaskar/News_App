@@ -10,6 +10,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,17 +38,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
 
-        if (checkInternetConnection()) {
+        displayNews();
+    }
 
-            getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
+   private void displayNews(){
 
-        } else {
+       if (checkInternetConnection()) {
 
-            findViewById(R.id.loading_indicator).setVisibility(View.GONE);
-            ((TextView)(findViewById(R.id.empty_list))).setText(R.string.no_internet_connection);
-            findViewById(R.id.empty_list).setVisibility(View.VISIBLE);
-        }
+           getSupportLoaderManager().initLoader(NEWS_LOADER_ID, null, this).forceLoad();
 
+       } else {
+
+           findViewById(R.id.loading_indicator).setVisibility(View.GONE);
+           ((TextView)(findViewById(R.id.empty_list))).setText(R.string.no_internet_connection);
+           findViewById(R.id.empty_list).setVisibility(View.VISIBLE);
+       }
 
     }
 
@@ -84,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (newsList != null && !newsList.isEmpty()) {
 
             findViewById(R.id.main_view).setVisibility(View.VISIBLE);
+            findViewById(R.id.empty_list).setVisibility(View.GONE);
             displayNews(newsList);
 
         }else {
@@ -164,5 +172,37 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(@NonNull Loader<List<News>> loader) {
         mAdapter.clear();
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.news_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh_btn:
+                refresh();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void refresh() {
+
+        displayLoader();
+        displayNews();
+    }
+
+    private void displayLoader() {
+
+        findViewById(R.id.loading_indicator).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_view).setVisibility(View.GONE);
     }
 }
