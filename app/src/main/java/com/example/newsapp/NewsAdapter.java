@@ -32,20 +32,19 @@ public class NewsAdapter extends ArrayAdapter<News> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        View listItemView = convertView;
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.news_item, parent, false);
         }
 
 
         News currentNews = getItem(position);
 
-        setDataOnView(currentNews,listItemView);
-        addOnClickListenerOnNewsItem(currentNews,listItemView);
+        setDataOnView(currentNews,convertView);
+        addOnClickListenerOnNewsItem(currentNews,convertView);
 
 
-        return listItemView;
+        return convertView;
     }
 
     private void addOnClickListenerOnNewsItem(final News currentNews, View listItemView) {
@@ -57,7 +56,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
                 Uri newsUri = Uri.parse(currentNews.getmUrl());
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
 
-                mContext.startActivity(websiteIntent);
+                if (websiteIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                    mContext.startActivity(websiteIntent);
+                }
             }
         });
 
@@ -71,6 +72,26 @@ public class NewsAdapter extends ArrayAdapter<News> {
             ((TextView)(listItemView.findViewById(R.id.news_date))).setText(date);
         ((TextView)(listItemView.findViewById(R.id.news_title))).setText(currentNews.getmTitle());
         ((TextView)(listItemView.findViewById(R.id.news_type))).setText(currentNews.getmType());
+
+        displayAuthors(currentNews, listItemView);
+
+    }
+
+    private void displayAuthors(News currentNews, View listItemView) {
+
+        List<String> authors = currentNews.getmAuthors();
+        String authorsStr = "";
+        if(authors != null){
+
+            for(String author: authors){
+                if(authors.indexOf(author) != (authors.size()-1))
+                    authorsStr += author+", ";
+                else
+                    authorsStr += author;
+            }
+        }
+
+        ((TextView)(listItemView.findViewById(R.id.news_authors))).setText(authorsStr);
 
     }
 

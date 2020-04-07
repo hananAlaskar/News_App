@@ -42,4 +42,10 @@
         android:layout_margin="@dimen/title_margin"
         tool:text="news_title" />
 
+    <TextView
+        android:id="@+id/news_authors"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

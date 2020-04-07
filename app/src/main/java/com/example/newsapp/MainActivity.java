@@ -9,6 +9,7 @@ import androidx.loader.content.Loader;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -72,8 +73,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
 
+        return new NewsLoader(this, buildUrl());
+    }
 
-        return new NewsLoader(this, THE_GUARDIAN_REQUEST_URL);
+    private String buildUrl() {
+
+        Uri baseUri = Uri.parse(THE_GUARDIAN_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "json");
+        uriBuilder.appendQueryParameter("limit", "20");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+
+        return uriBuilder.toString();
     }
 
     @Override

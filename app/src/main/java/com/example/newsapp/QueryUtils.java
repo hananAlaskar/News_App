@@ -140,16 +140,46 @@ public final class QueryUtils {
                 String type = currentNews.getString("type");
                 String sectionType = currentNews.getString("sectionName");
 
-                News earthquake = new News(date, title, url, type, sectionType);
+                List<String> authors = getAuthors(currentNews.getJSONArray("tags"));
 
-                newsList.add(earthquake);
+                News news;
+//                news = new News(date, title, url, type, sectionType);
+
+
+                if (authors == null)
+                    news = new News(date, title, url, type, sectionType);
+                else
+                    news = new News(date, title, url, type, sectionType, authors);
+
+
+                newsList.add(news);
             }
 
         } catch (JSONException e) {
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the news JSON results", e);
         }
 
         return newsList;
+    }
+
+    private static List<String> getAuthors(JSONArray tags) {
+
+        if (tags == null || tags.length() == 0)
+            return  null;
+
+        List<String> authors = new ArrayList<>();
+
+        for (int i = 0 ; i < tags.length() ; i += 2) {
+            try {
+                authors.add(tags.getJSONObject(i).getString("webTitle"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return authors;
+
     }
 
 }
